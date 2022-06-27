@@ -4,14 +4,21 @@ const cartDataSlice = createSlice({
     name: 'cartData',
     initialState: {
         items: [],
-        totalQuantity: 0
+        totalQuantity: 0,
+        changed:false
     },
     reducers: {
+        // this new reducer is reponsoble for changing the intial state which help for fetching the data
+        replaceCart(state, action) {
+            state.totalQuantity = action.payload.totalQuantity;
+            state.items = action.payload.items;
+          },
         addItemToCart(state, action) {
 
             const newItem = action.payload;
             const existingItem = state.items.find((item)=>item.id ===newItem.id);
             state.totalQuantity++;
+            state.changed=true;
             if(!existingItem){
                 // here as per basic push change the original state of array but here dur to rtk it not change
                 state.items.push({
@@ -31,6 +38,7 @@ const cartDataSlice = createSlice({
             const id =action.payload;
             const existingItem=state.items.find((item)=>item.id===id);
             state.totalQuantity--;
+            state.changed=true;
             if(existingItem.quantity===1){
              state.items= state.items.filter((item)=> item.id !==id);
 
@@ -43,6 +51,7 @@ const cartDataSlice = createSlice({
 
     }
 })
+
 
 export const cartDatActions = cartDataSlice.actions;
 export default cartDataSlice;

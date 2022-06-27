@@ -1,15 +1,58 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector,useDispatch } from 'react-redux';
 import Cart from './components/Cart/Cart';
 import Layout from './components/Layout/Layout';
 import Products from './components/Shop/Products';
+import Notification from './components/UI/Notification';
+import{sendCartData,fetchCartData}from './store/cart-actions';
 
+let isInitial = true;
 function App() {
-  const isVisible=useSelector(state =>state.cart.isVisible)
+  const dispatch=useDispatch();
+  const isVisible=useSelector(state =>state.cart.isVisible);
+  const cart =useSelector(state => state.cartData);
+  const notification = useSelector(state => state.cart.notification)
+
+  useEffect(()=>{
+   dispatch(fetchCartData())
+  },[dispatch])
+  // here use selector trigger whenever there is change in the store so cart is adding as dependency 
+  //when cart changes use effect trigger and https request will send
+  useEffect(()=>{
+    // fetch('https://http-redux-72a53-default-rtdb.asia-southeast1.firebasedatabase.app/cart.json',
+    // {
+      
+    //   method:'PUT',
+      
+    //   body:JSON.stringify(cart)
+    // }
+    // )
+    if(isInitial){
+      isInitial=false;
+      return;
+    }
+    // after calling this here it act as thunk like it dispatch the another function like reduxtool kit normally  
+    //  returs the action object but it also return the functions not only return if it is a function rtk will execute the function 
+    // so dipatch function inside will dispatch some actions and also put hhtp reuest
+    if(cart.changed){
+      dispatch(sendCartData(cart));
+    }
+   
+
+  },[cart,dispatch]);
   return (
-    <Layout>
+    <>
+    {notification && <Notification 
+    status={notification.status} 
+    title ={notification.title}
+    message={notification.message}
+    />}
+     <Layout>
       {isVisible &&<Cart />}
       <Products />
     </Layout>
+    </>
+   
   );
 }
 
