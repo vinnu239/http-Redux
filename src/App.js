@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 import { useSelector,useDispatch } from 'react-redux';
 import Cart from './components/Cart/Cart';
 import Layout from './components/Layout/Layout';
-import Products from './components/Shop/Products';
+import SearchBar from './components/UI/SearchBar.js';
+import ProductView from './components/Shop/ProductView';
 import Notification from './components/UI/Notification';
 import{sendCartData,fetchCartData}from './store/cart-actions';
 
@@ -12,7 +13,7 @@ function App() {
   const isVisible=useSelector(state =>state.cart.isVisible);
   const cart =useSelector(state => state.cartData);
   const notification = useSelector(state => state.cart.notification)
-
+// it is used for fetching intial data
   useEffect(()=>{
    dispatch(fetchCartData())
   },[dispatch])
@@ -48,8 +49,10 @@ function App() {
     message={notification.message}
     />}
      <Layout>
+     <SearchBar/>
       {isVisible &&<Cart />}
-      <Products />
+      {/* <Products /> */}
+      <ProductView/>
     </Layout>
     </>
    

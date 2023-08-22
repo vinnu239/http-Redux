@@ -1,0 +1,22 @@
+ {"moviesList" :
+    [
+    {
+    "id":"m1",
+    "price":10,
+    "title":"Apocalypto",
+    "description":"Adventeour"
+  },
+  {
+    "id":"m2",
+    "price":14,
+    "title":"RRR",
+    "description":"Freedom Fighters"
+  },
+  {
+    "id":"m3",
+    "price":9,
+    "title":"Eternals",
+    "description":"Sci-FI"
+  }
+  ]
+}

@@ -1,0 +1,22 @@
+ {"dummyProducts" :
+    [
+    {
+    "id":"p1",
+    "price":6,
+    "title":"My First Book",
+    "description":"My first Redux Project"
+  },
+  {
+    "id":"p2",
+    "price":8,
+    "title":"My second Book",
+    "description":"My second Redux Project with HTTP"
+  },
+  {
+    "id":"p3",
+    "price":10,
+    "title":"My Third Book",
+    "description":"My second Redux Project with HTTP"
+  }
+  ]
+}

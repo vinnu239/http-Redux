@@ -9,6 +9,7 @@ const cartDataSlice = createSlice({
     },
     reducers: {
         // this new reducer is reponsoble for changing the intial state which help for fetching the data
+        // once any change i  this value the useSelector will trigger and execute it
         replaceCart(state, action) {
             state.totalQuantity = action.payload.totalQuantity;
             state.items = action.payload.items;
